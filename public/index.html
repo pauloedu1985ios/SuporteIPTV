@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suporte IPTV</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Sistema de Suporte IPTV"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Suporte IPTV</title>
+
+    <!-- Tailwind CSS CDN para JIT compiler -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link para a fonte Inter do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Configuração do Tailwind JIT para permitir classes dinâmicas (como as cores geradas com 'from-purple-500') -->
+    <style type="text/tailwindcss">
+      @layer base {
+        body {
+          font-family: 'Inter', sans-serif;
+        }
+      }
+    </style>
 </head>
 <body>
-  <div id="root"></div>
+    <noscript>Você precisa habilitar o JavaScript para rodar este aplicativo.</noscript>
+    <div id="root"></div>
 </body>
 </html>
