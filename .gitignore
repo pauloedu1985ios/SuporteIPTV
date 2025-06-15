@@ -1,0 +1,36 @@
+# Ignorar dependências da Node
+/node_modules
+/npm-debug.log
+/yarn-error.log
+
+# Ignorar arquivos de build gerados
+/build
+/dist
+
+# Ignorar variáveis de ambiente (crucial para segurança)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar logs e caches
+npm-debug.log*
+yarn-debug.log*
+.eslintcache
+.parcel-cache
+.cache/
+
+# Ignorar configurações de IDEs
+.idea/
+.vscode/
+*.swp
+*.bak
+*.swo
+
+# Ignorar arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos de teste (se tiver)
+/coverage
