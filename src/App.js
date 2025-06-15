@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Mail, MessageCircle, Lightbulb, Phone, Menu, X, Film, Tv, Bug, ArrowLeft, CheckCircle, AlertCircle, Send, Star } from 'lucide-react';
 
 // Configurações do Trello (JÁ ESTÃO EM VARIÁVEIS DE AMBIENTE EM PRODUÇÃO)
-                const TRELLO_CONFIG = {
-                  // Acesse as variáveis de ambiente usando process.env
-                  API_KEY: process.env.REACT_APP_TRELLO_API_KEY,
-                  TOKEN: process.env.REACT_APP_TRELLO_TOKEN,
-                  BOARD_ID: '90pWzFcP',
-                  LISTS: {
-                    SOLICITACOES: '684e203b3eb82ea24df04678',
-                    PROBLEMAS: '684e203b3eb82ea24df04679',
-                    SUGESTOES: '684e203b3eb82ea24df0467a'
-                  }
-                };
+const TRELLO_CONFIG = {
+  // Acesse as variáveis de ambiente usando process.env
+  API_KEY: process.env.REACT_APP_TRELLO_API_KEY,
+  TOKEN: process.env.REACT_APP_TRELLO_TOKEN,
+  BOARD_ID: '90pWzFcP',
+  LISTS: {
+    SOLICITACOES: '684e203b3eb82ea24df04678',
+    PROBLEMAS: '684e203b3eb82ea24df04679',
+    SUGESTOES: '684e203b3eb82ea24df0467a'
+  }
+};
 
 const WHATSAPP_CONFIG = {
-  NUMBER: '5541999999999',
-  MESSAGE: encodeURIComponent('Olá! Preciso de suporte técnico para meu IPTV.')
+  NUMBER: process.env.REACT_APP_WHATSAPP_NUMBER,
+  MESSAGE: process.env.REACT_APP_WHATSAPP_MESSAGE
 };
 
 // Componente de Notificação Toast
@@ -639,7 +639,16 @@ const SuggestionsForm = ({ onBack, showToast }) => {
 // Componente da Página Inicial
 const HomePage = ({ setCurrentView }) => {
   const handleWhatsappClick = () => {
-    window.open(`https://wa.me/${WHATSAPP_CONFIG.NUMBER}?text=${WHATSAPP_CONFIG.MESSAGE}`, '_blank');
+    // Certifica-se de que as variáveis de ambiente foram carregadas antes de usar
+    const whatsappNumber = WHATSAPP_CONFIG.NUMBER;
+    const whatsappMessage = WHATSAPP_CONFIG.MESSAGE;
+
+    if (whatsappNumber && whatsappMessage) {
+      window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+    } else {
+      console.error("Erro: Número ou mensagem do WhatsApp não configurados.");
+      // Opcional: mostrar um toast de erro para o usuário
+    }
   };
 
   const features = [
@@ -681,15 +690,9 @@ const HomePage = ({ setCurrentView }) => {
             Central de Suporte IPTV
           </h1>
           <p className="text-lg text-purple-100 mb-6">
-            Estamos aqui para ajudar! Escolha uma das opções abaixo ou entre em contato diretamente conosco.
+            Estamos aqui para ajudar! Escolha uma das opções abaixo para iniciar.
           </p>
-          <button
-            onClick={handleWhatsappClick}
-            className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 mx-auto"
-          >
-            <Phone size={20} />
-            Falar no WhatsApp
-          </button>
+          {/* O botão do WhatsApp foi movido para o footer */}
         </div>
       </div>
 
@@ -717,7 +720,7 @@ const HomePage = ({ setCurrentView }) => {
         })}
       </div>
 
-      {/* Info Section - Continuado a partir do seu código */}
+      {/* Info Section */}
       <div className="bg-white rounded-xl shadow-lg p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Como funciona?</h2>
         <div className="grid md:grid-cols-2 gap-6">
@@ -747,6 +750,21 @@ const HomePage = ({ setCurrentView }) => {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Novo Footer com o botão do WhatsApp */}
+      <div className="bg-white rounded-2xl p-8 shadow-xl text-center flex flex-col items-center justify-center space-y-4">
+        <h2 className="text-2xl font-bold text-gray-800">Precisa de Ajuda Imediata?</h2>
+        <p className="text-gray-600 text-lg max-w-lg">
+          Fale conosco diretamente pelo WhatsApp para um suporte rápido e personalizado.
+        </p>
+        <button
+          onClick={handleWhatsappClick}
+          className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md transition-all duration-300 transform hover:scale-105 flex items-center gap-3 justify-center"
+        >
+          <Phone size={24} />
+          Falar no WhatsApp
+        </button>
       </div>
     </div>
   );
@@ -781,7 +799,7 @@ const App = () => {
     // Aplica estilos globais com Tailwind
     <div className="min-h-screen bg-gray-100 font-sans text-gray-900 pb-12">
       {/* Script para carregar o Tailwind CSS JIT compiler */}
-      <script src="https://cdn.tailwindcss.com"></script>
+      {/* <script src="https://cdn.tailwindcss.com"></script> REMOVIDO: Já está no index.html */}
       {/* Estilos CSS personalizados para a animação do toast */}
       <style>
         {`
@@ -800,10 +818,10 @@ const App = () => {
           }
 
           /* Estilos para o font Inter, ideal para a aplicação */
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-          body {
+          /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); REMOVIDO: Já está no index.html */
+          /* body {
             font-family: 'Inter', sans-serif;
-          }
+          } */
         `}
       </style>
 
